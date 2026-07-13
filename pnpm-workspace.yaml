@@ -1,3 +1,5 @@
 allowBuilds:
   better-sqlite3: true
   "@swc/core": true
+overrides:
+  strtok3: 8.0.1
