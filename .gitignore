@@ -23,3 +23,7 @@ yarn-error.log
 
 # Platform specific
 .DS_Store
+
+# local sqlite databases
+tmp/*.sqlite3
+tmp/db.sqlite3
