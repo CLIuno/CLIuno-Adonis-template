@@ -27,7 +27,14 @@ export default class PostsController {
       return response.badRequest({ status: 'error', message: 'Title and Content are required' })
     }
 
-    const post = await Post.create({ title, content, user_id: auth.getUserOrFail().id })
+    // frontends may send either casing; image_url is what goes back out
+    const imageUrl = request.input('image_url') ?? request.input('imageUrl') ?? null
+    const post = await Post.create({
+      title,
+      content,
+      imageUrl,
+      user_id: auth.getUserOrFail().id,
+    })
     await post.load('user')
     return response.created({
       status: 'success',
@@ -53,7 +60,9 @@ export default class PostsController {
     if (!post) {
       return response.notFound({ status: 'error', message: 'Post not found' })
     }
-    post.merge(request.only(['title', 'content', 'imageUrl']))
+    post.merge(request.only(['title', 'content']))
+    const nextImageUrl = request.input('image_url') ?? request.input('imageUrl')
+    if (nextImageUrl !== undefined) post.imageUrl = nextImageUrl
     await post.save()
     return response.ok({ status: 'success', message: 'Post updated', data: { post } })
   }

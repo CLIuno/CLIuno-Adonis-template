@@ -16,8 +16,12 @@ const TodosController = () => import('#controllers/todos_controller')
 const PostsController = () => import('#controllers/posts_controller')
 const FollowsController = () => import('#controllers/follows_controller')
 const RolesController = () => import('#controllers/roles_controller')
+const UploadsController = () => import('#controllers/uploads_controller')
 
 router.get('/', async () => ({ status: 'success', message: 'CLIuno AdonisJS API' }))
+
+// Uploaded images are public and unversioned — no /api/v1 prefix, no auth.
+router.get('/uploads/:filename', [UploadsController, 'serve'])
 
 router
   .group(() => {
@@ -88,6 +92,9 @@ router
         router.get('/roles/:id', [RolesController, 'show'])
         router.patch('/roles/:id', [RolesController, 'update'])
         router.delete('/roles/:id', [RolesController, 'destroy'])
+
+        // Uploads
+        router.post('/uploads/image', [UploadsController, 'image'])
       })
       .use(middleware.auth())
   })

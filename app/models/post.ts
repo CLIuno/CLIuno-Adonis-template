@@ -14,7 +14,7 @@ export default class Post extends BaseModel {
   @column()
   declare content: string
 
-  @column({ columnName: 'image_url', serializeAs: 'imageUrl' })
+  @column({ columnName: 'image_url', serializeAs: 'image_url' })
   declare imageUrl: string | null
 
   @column()

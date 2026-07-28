@@ -27,3 +27,7 @@ yarn-error.log
 # local sqlite databases
 tmp/*.sqlite3
 tmp/db.sqlite3
+
+# uploaded images
+uploads/*
+!uploads/.gitkeep

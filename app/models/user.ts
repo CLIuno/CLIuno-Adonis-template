@@ -62,6 +62,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare is_deleted: boolean
 
   @column()
+  declare avatar_url: string | null
+
+  @column()
   declare role_id: number | null
 
   @column.dateTime({ autoCreate: true })

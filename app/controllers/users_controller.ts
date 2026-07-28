@@ -22,7 +22,7 @@ export default class UsersController {
 
   async updateCurrent({ auth, request, response }: HttpContext) {
     const user = auth.getUserOrFail()
-    user.merge(request.only(['first_name', 'last_name', 'phone']))
+    user.merge(request.only(['first_name', 'last_name', 'phone', 'avatar_url']))
     await user.save()
     return response.ok({ status: 'success', message: 'User updated', data: { user } })
   }
@@ -80,7 +80,7 @@ export default class UsersController {
     if (!user) {
       return response.notFound({ status: 'warning', message: 'User not found' })
     }
-    user.merge(request.only(['first_name', 'last_name', 'phone']))
+    user.merge(request.only(['first_name', 'last_name', 'phone', 'avatar_url']))
     await user.save()
     return response.ok({ status: 'success', data: { user } })
   }
