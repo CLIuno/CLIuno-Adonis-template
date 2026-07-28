@@ -24,6 +24,11 @@ pnpm typecheck              # tsc --noEmit
   **snake_case property names** (deliberate: serialization then matches the contract).
   Secret columns carry `serializeAs: null`. `otp_base32` needs its explicit
   `columnName` — Lucid's naming strategy would otherwise mangle it to `otp_base_32`.
+- `start/model_serialization.ts` (first preload) makes snake_case properties actually
+  reach the wire: Lucid's default strategy camelCases `serializedName`, so responses
+  used to carry `firstName`/`isCompleted` while every frontend reads `first_name`.
+  **Don't drop this preload** — and set `serializeAs` explicitly on any property whose
+  wire name differs from its declaration (`Post.imageUrl` → `image_url`).
 - Lucid relations declare explicit `foreignKey` (`user_id`, `post_id`, `role_id`)
   because properties are snake_case.
 - `app/services/totp.ts` — RFC 6238 TOTP (otpauth; note `hi-base32` is CJS —
