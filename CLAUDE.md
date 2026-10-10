@@ -50,13 +50,15 @@ oxlint + AdonisJS prettier config; conventional commits (commitlint + husky).
 
 ## AI agents (Claude Code and friends)
 
-- **Check the CLIuno skills first**: `npx cliuno@latest skills status` — if any is
-  `missing`/`outdated`, run `npx cliuno@latest skills install` (adds `.claude/skills/cliuno-*`:
+These commands need **cliuno 2.2 or newer** (`npx cliuno@^2.2` fetches it).
+
+- **Check the CLIuno skills first**: `npx cliuno@^2.2 skills status` — if any is
+  `missing`/`outdated`, run `npx cliuno@^2.2 skills install` (adds `.claude/skills/cliuno-*`:
   the generator workflow, the scaffold guide, and the shared REST contract).
 - **Generate resources, don't hand-write them**:
-  `npx cliuno@latest make:resource Product --fields name:string,price:number,inStock:boolean`
+  `npx cliuno@^2.2 make:resource Product --fields name:string,price:number,inStock:boolean`
   creates `app/models/product.ts`, `database/migrations/<timestamp>_create_products_table.ts`, `app/controllers/products_controller.ts`, `app/validators/product.ts` and registers it in `start/routes.ts`, following this
   template's conventions and the `{status, message, data}` contract. `--dry-run` previews,
   re-running never duplicates registrations, `--force` overwrites.
-- Single pieces: `make:model` (→ `node ace make:model`), `make:migration` (→ `node ace make:migration`), `make:controller` (→ `node ace make:controller`), `make:validator` (→ `node ace make:validator`). `npx cliuno@latest make` lists them.
+- Single pieces: `make:model` (→ `node ace make:model`), `make:migration` (→ `node ace make:migration`), `make:controller` (→ `node ace make:controller`), `make:validator` (→ `node ace make:validator`). `npx cliuno@^2.2 make` lists them.
 - Then edit fields/business logic only, and run the gates above.
